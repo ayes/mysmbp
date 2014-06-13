@@ -49,7 +49,7 @@ class KriminalitasDescription(models.Model):
 	isi = models.TextField('Keterangan', max_length=1024)
 
 	def __unicode__(self):
-		return self.kriminalitas_description
+		return self.nama_kriminalitas.nama_kriminalitas
 
 	class meta:
 		db_table = 'tbkriminalitas_description'
