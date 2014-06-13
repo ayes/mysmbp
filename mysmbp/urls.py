@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^', include('smbp.urls')),
     url(r'^media/(.*)$', 'django.views.static.serve', {'document_root' : settings.MEDIA_ROOT}),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^grappelli/', include('grappelli.urls')),
 )
