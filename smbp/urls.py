@@ -8,5 +8,7 @@ urlpatterns = patterns('',
 	url(r'^dashboard/logout/?$','smbp.views.logout'),
 
 	url(r'^dashboard/wilayah/?','smbp.views.wilayah'),
+	url(r'^dashboard/data-kriminalitas/?','smbp.views.data_kriminalitas'),
+	url(r'^dashboard/rekapitulasi-kriminalitas/?','smbp.views.rekapitulasi_kriminalitas'),
 
 )

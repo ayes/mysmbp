@@ -24,7 +24,8 @@ class Kecamatan(models.Model):
 		verbose_name_plural = '2. Kecamatan'
 
 class Kelurahan(models.Model):
-	kecamatan = models.ForeignKey(Kecamatan, verbose_name='Nama Kecamatan')
+	kota = models.ForeignKey(Kota)
+	kecamatan = models.ForeignKey(Kecamatan)
 	kelurahan = models.CharField('Nama Kelurahan', max_length = 200)
 
 	def __unicode__(self):
