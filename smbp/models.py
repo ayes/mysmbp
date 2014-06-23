@@ -2,18 +2,7 @@ from django.db import models
 from django.forms import ValidationError
 from django.contrib.auth.models import User
 
-class Kota(models.Model):
-	kota = models.CharField('Nama Kota', max_length = 200)
-
-	def __unicode__(self):
-		return self.kota
-
-	class Meta:
-		db_table = 'tbkota'
-		verbose_name_plural = '1. Kota'
-
 class Kecamatan(models.Model):
-	kota = models.ForeignKey(Kota, verbose_name='Nama Kota')
 	kecamatan = models.CharField('Nama Kecamatan', max_length = 200)
 
 	def __unicode__(self):
@@ -24,7 +13,6 @@ class Kecamatan(models.Model):
 		verbose_name_plural = '2. Kecamatan'
 
 class Kelurahan(models.Model):
-	kota = models.ForeignKey(Kota)
 	kecamatan = models.ForeignKey(Kecamatan)
 	kelurahan = models.CharField('Nama Kelurahan', max_length = 200)
 
@@ -35,6 +23,20 @@ class Kelurahan(models.Model):
 		db_table = 'tbkelurahan'
 		verbose_name_plural = '3. Kelurahan'
 
+class Potensi(models.Model):
+	judul = models.CharField('Judul', max_length = 200)
+	pelapor = models.ForeignKey(User)
+	tanggal = models.DateTimeField('Tanggal dan Waktu')
+	potensi = models.TextField('Keterangan Potensi', max_length=1024)
+
+	def __unicode__(self):
+		return self.judul
+
+	class Meta:
+		db_table = 'tbpotensi'
+		verbose_name_plural = '4. Potensi'
+
+
 class Kriminalitas(models.Model):
 	kriminalitas = models.CharField('Nama Kriminalitas', max_length = 200)
 
@@ -43,10 +45,9 @@ class Kriminalitas(models.Model):
 
 	class Meta:
 		db_table = 'tbkriminalitas'
-		verbose_name_plural = '4. Kriminalitas'
+		verbose_name_plural = '5. Kriminalitas'
 
 class KriminalitasDescription(models.Model):
-	kota = models.ForeignKey(Kota)
 	kecamatan = models.ForeignKey(Kecamatan)
 	kelurahan = models.ForeignKey(Kelurahan)
 	kriminalitas = models.ForeignKey(Kriminalitas)
@@ -60,4 +61,4 @@ class KriminalitasDescription(models.Model):
 
 	class Meta:
 		db_table = 'tbkriminalitas_description'
-		verbose_name_plural = '5. Input Data Kriminalitas'
+		verbose_name_plural = '6. Input Data Kriminalitas'
