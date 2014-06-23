@@ -7,7 +7,10 @@ from smbp.models import *
 from smbp.forms import *
 
 def home_page(request):
-	return render_to_response('login-page.html',{}, RequestContext(request))
+	if request.user.is_authenticated():
+		return HttpResponseRedirect('/dashboard');
+	else:
+		return render_to_response('login-page.html',{}, RequestContext(request))
 
 @login_required()
 def dashboard(request):
