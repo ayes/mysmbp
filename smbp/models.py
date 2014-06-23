@@ -59,6 +59,10 @@ class KriminalitasDescription(models.Model):
 	def __unicode__(self):
 		return self.kriminalitas.kriminalitas
 
+	def gambar_(self):
+		return '<img src="/media/%s"/ width="100px">' % self.gambar
+	gambar_.allow_tags = True
+
 	class Meta:
 		db_table = 'tbkriminalitas_description'
 		verbose_name_plural = '6. Input Data Kriminalitas'

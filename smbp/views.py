@@ -75,7 +75,7 @@ def kejadian(request):
 @login_required()
 def wilayah(request):
 	try:
-		wilayah = Kelurahan.objects.select_related()
+		wilayah = KriminalitasDescription.objects.select_related()
 	except:
 		wilayah = {}
 

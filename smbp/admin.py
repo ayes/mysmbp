@@ -14,7 +14,8 @@ class KriminalitasAdmin(admin.ModelAdmin):
 	pass
 
 class KriminalitasDescriptionAdmin(admin.ModelAdmin):
-	pass
+	list_display = ('tanggal','kriminalitas', 'kecamatan', 'kelurahan','pelapor', 'gambar_', 'isi')
+	list_filter = ('kriminalitas','tanggal',)
 
 admin.site.register(Kecamatan, KecamatanAdmin)
 admin.site.register(Kelurahan, KelurahanAdmin)
