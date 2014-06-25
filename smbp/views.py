@@ -78,11 +78,15 @@ def kejadian(request):
 @login_required()
 def wilayah(request):
 	try:
-		wilayah = KriminalitasDescription.objects.select_related()
+		kecamatan = Kecamatan.objects.all()
 	except:
-		wilayah = {}
+		kecamatan = {}
+	try:
+		kelurahan = Kelurahan.objects.all()
+	except:
+		kelurahan = {}
 
-	return render_to_response('dashboard-wilayah.html', {'wilayah':wilayah}, RequestContext(request))
+	return render_to_response('dashboard-wilayah.html', {'kecamatan':kecamatan, 'kelurahan':kelurahan}, RequestContext(request))
 
 @login_required()
 def data_kriminalitas(request):
