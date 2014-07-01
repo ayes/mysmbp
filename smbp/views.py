@@ -76,12 +76,36 @@ def kejadian(request):
 		{'form': form, 'kecamatan': kecamatan, 'kelurahan': kelurahan, 'kriminalitas': kriminalitas}, RequestContext(request))
 
 @login_required()
+def live_potensi(request):
+	try:
+		live_potensi = Potensi.objects.all().order_by('id')
+	except:
+		live_potensi = {}
+	return render_to_response('dashboard-live-potensi.html', {'live_potensi':live_potensi}, RequestContext(request))
+
+@login_required()
+def live_kejadian(request):
+	try:
+		live_kejadian = KriminalitasDescription.objects.select_related().order_by('id')
+	except:
+		live_kejadian = {}
+	return render_to_response('dashboard-live-kejadian.html', {'live_kejadian':live_kejadian}, RequestContext(request))
+
+@login_required()
 def wilayah(request):
 	try:
 		kecamatan = Kecamatan.objects.all().order_by('kecamatan')
 	except:
 		kecamatan = {}
 	return render_to_response('dashboard-wilayah.html', {'kecamatan':kecamatan}, RequestContext(request))
+
+@login_required()
+def show_wilayah_kelurahan(request, kelurahan_id = None):
+	try:
+		show_wilayah_kelurahan = KriminalitasDescription.objects.select_related().filter(kelurahan_id=kelurahan_id)
+	except:
+		show_wilayah_kelurahan = {}
+	return render_to_response('dashboard-wilayah-kelurahan.html', {'show_wilayah_kelurahan':show_wilayah_kelurahan}, RequestContext(request))
 
 @login_required()
 def data_kriminalitas(request):

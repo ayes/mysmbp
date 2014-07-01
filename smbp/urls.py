@@ -9,7 +9,10 @@ urlpatterns = patterns('',
 
 	url(r'^dashboard/potensi/?','smbp.views.potensi'),
 	url(r'^dashboard/kejadian/?','smbp.views.kejadian'),
-	url(r'^dashboard/wilayah/?','smbp.views.wilayah'),
+	url(r'^dashboard/live-potensi/?','smbp.views.live_potensi'),
+	url(r'^dashboard/live-kejadian/?','smbp.views.live_kejadian'),
+	url(r'^dashboard/wilayah/?$','smbp.views.wilayah'),
+	url(r'^dashboard/wilayah/kelurahan/(?P<kelurahan_id>[\d]+)$', 'smbp.views.show_wilayah_kelurahan'),
 	url(r'^dashboard/data-kriminalitas/?','smbp.views.data_kriminalitas'),
 	url(r'^dashboard/rekapitulasi-kriminalitas/?','smbp.views.rekapitulasi_kriminalitas'),
 
