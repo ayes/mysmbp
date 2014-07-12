@@ -88,7 +88,7 @@ def kejadian(request):
 @login_required()
 def live_potensi(request):
 	try:
-		live_potensi = Potensi.objects.all().order_by('id')[:20]
+		live_potensi = Potensi.objects.all().order_by('-id')[:20]
 	except:
 		live_potensi = {}
 	return render_to_response('dashboard-live-potensi.html', {'live_potensi':live_potensi,'profile':get_profile(request)}, RequestContext(request))
@@ -96,7 +96,7 @@ def live_potensi(request):
 @login_required()
 def live_kejadian(request):
 	try:
-		live_kejadian = KriminalitasDescription.objects.select_related().order_by('id')[:20]
+		live_kejadian = KriminalitasDescription.objects.select_related().order_by('-id')[:20]
 	except:
 		live_kejadian = {}
 	return render_to_response('dashboard-live-kejadian.html', {'live_kejadian':live_kejadian,'profile':get_profile(request)}, RequestContext(request))
