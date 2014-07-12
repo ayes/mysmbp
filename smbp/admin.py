@@ -17,8 +17,12 @@ class KriminalitasDescriptionAdmin(admin.ModelAdmin):
 	list_display = ('tanggal','kriminalitas', 'kecamatan', 'kelurahan','pelapor', 'gambar_', 'isi')
 	list_filter = ('kriminalitas','tanggal',)
 
+class ProfileAdmin(admin.ModelAdmin):
+	pass
+
 admin.site.register(Kecamatan, KecamatanAdmin)
 admin.site.register(Kelurahan, KelurahanAdmin)
 admin.site.register(Potensi, PotensiAdmin)
 admin.site.register(Kriminalitas, KriminalitasAdmin)
 admin.site.register(KriminalitasDescription, KriminalitasDescriptionAdmin)
+admin.site.register(Profile, ProfileAdmin)

@@ -13,8 +13,18 @@ def home_page(request):
 		return render_to_response('login-page.html',{}, RequestContext(request))
 
 @login_required()
+def get_profile(request):
+	try:
+		profile = Profile.objects.get(user=request.user)
+	except:
+		profile = {}
+
+	return profile
+
+
+@login_required()
 def dashboard(request):
-	return render_to_response('dashboard-main.html', {}, RequestContext(request))
+	return render_to_response('dashboard-main.html', {'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def logout(request):
@@ -36,7 +46,7 @@ def potensi(request):
 			return HttpResponseRedirect('/dashboard/potensi/')
 	else:
 		form = PotensiForm()
-	return render_to_response('dashboard-potensi.html', {'form': form}, RequestContext(request))
+	return render_to_response('dashboard-potensi.html', {'form': form,'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def kejadian(request):
@@ -73,23 +83,23 @@ def kejadian(request):
 			kriminalitas = {}
 		form = KejadianForm()
 	return render_to_response('dashboard-kejadian.html', 
-		{'form': form, 'kecamatan': kecamatan, 'kelurahan': kelurahan, 'kriminalitas': kriminalitas}, RequestContext(request))
+		{'form': form, 'kecamatan': kecamatan, 'kelurahan': kelurahan, 'kriminalitas': kriminalitas,'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def live_potensi(request):
 	try:
-		live_potensi = Potensi.objects.all().order_by('id')
+		live_potensi = Potensi.objects.all().order_by('id')[:20]
 	except:
 		live_potensi = {}
-	return render_to_response('dashboard-live-potensi.html', {'live_potensi':live_potensi}, RequestContext(request))
+	return render_to_response('dashboard-live-potensi.html', {'live_potensi':live_potensi,'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def live_kejadian(request):
 	try:
-		live_kejadian = KriminalitasDescription.objects.select_related().order_by('id')
+		live_kejadian = KriminalitasDescription.objects.select_related().order_by('id')[:20]
 	except:
 		live_kejadian = {}
-	return render_to_response('dashboard-live-kejadian.html', {'live_kejadian':live_kejadian}, RequestContext(request))
+	return render_to_response('dashboard-live-kejadian.html', {'live_kejadian':live_kejadian,'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def wilayah(request):
@@ -97,7 +107,7 @@ def wilayah(request):
 		kecamatan = Kecamatan.objects.all().order_by('kecamatan')
 	except:
 		kecamatan = {}
-	return render_to_response('dashboard-wilayah.html', {'kecamatan':kecamatan}, RequestContext(request))
+	return render_to_response('dashboard-wilayah.html', {'kecamatan':kecamatan,'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def show_wilayah_kelurahan(request, kelurahan_id = None):
@@ -105,7 +115,7 @@ def show_wilayah_kelurahan(request, kelurahan_id = None):
 		show_wilayah_kelurahan = KriminalitasDescription.objects.select_related().filter(kelurahan_id=kelurahan_id)
 	except:
 		show_wilayah_kelurahan = {}
-	return render_to_response('dashboard-wilayah-kelurahan.html', {'show_wilayah_kelurahan':show_wilayah_kelurahan}, RequestContext(request))
+	return render_to_response('dashboard-wilayah-kelurahan.html', {'show_wilayah_kelurahan':show_wilayah_kelurahan,'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def data_kriminalitas(request):
@@ -114,18 +124,36 @@ def data_kriminalitas(request):
 	except:
 		data_kriminalitas = {}
 
-	return render_to_response('dashboard-data-kriminalitas.html', {'data_kriminalitas':data_kriminalitas}, RequestContext(request))
+	return render_to_response('dashboard-data-kriminalitas.html', {'data_kriminalitas':data_kriminalitas,'profile':get_profile(request)}, RequestContext(request))
 
 @login_required()
 def rekapitulasi_kriminalitas(request):
 	try:
-		kriminalitas = Kriminalitas.objects.all()
+		kriminalitas = Kriminalitas.objects.all().order_by('id')
 	except:
 		kriminalitas = {}
 
-	try:
-		rekapitulasi_kriminalitas = KriminalitasDescription.objects.select_related()
-	except:
-		rekapitulasi_kriminalitas = {}
+	#try:
+		rekapitulasi_kriminalitas = KriminalitasDescription.objects.select_related().filter(kriminalitas_id=kriminalitas_id).aggregate(Sum('field_name'))
+	#except:
+	#	rekapitulasi_kriminalitas = {}
 
-	return render_to_response('dashboard-rekapitulasi-kriminalitas.html', {'kriminalitas':kriminalitas,'rekapitulasi_kriminalitas':rekapitulasi_kriminalitas}, RequestContext(request))
+	return render_to_response('dashboard-rekapitulasi-kriminalitas.html', {'kriminalitas':kriminalitas,'profile':get_profile(request)}, RequestContext(request))
+
+@login_required()
+def profile(request):
+	if request.method == 'POST': 
+		form = ProfileForm(request.POST, request.FILES)
+		if form.is_valid():
+			try:
+				profile = Profile.objects.get(user=request.user)
+				profile.gambar= request.FILES['gambar']
+				profile.save()
+				return HttpResponseRedirect('/dashboard/profile/')
+			except:
+				profile = Profile(user=request.user, gambar=request.FILES['gambar'])
+				profile.save()
+	else:
+		form = ProfileForm()
+	return render_to_response('dashboard-profile.html', 
+		{'form': form,'profile':get_profile(request)}, RequestContext(request))

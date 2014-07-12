@@ -7,6 +7,7 @@ urlpatterns = patterns('',
 	url(r'^dashboard/?$', 'smbp.views.dashboard'),
 	url(r'^dashboard/logout/?$','smbp.views.logout'),
 
+	url(r'^dashboard/profile/?','smbp.views.profile'),
 	url(r'^dashboard/potensi/?','smbp.views.potensi'),
 	url(r'^dashboard/kejadian/?','smbp.views.kejadian'),
 	url(r'^dashboard/live-potensi/?','smbp.views.live_potensi'),

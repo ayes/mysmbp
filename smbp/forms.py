@@ -11,3 +11,8 @@ class KejadianForm(ModelForm):
 	class Meta:
 		model = KriminalitasDescription
 		fields = ['kecamatan', 'kelurahan', 'kriminalitas', 'tanggal', 'gambar', 'isi']
+
+class ProfileForm(ModelForm):
+	class Meta:
+		model = Profile
+		fields = ['gambar',]

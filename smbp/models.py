@@ -10,7 +10,7 @@ class Kecamatan(models.Model):
 
 	class Meta:
 		db_table = 'tbkecamatan'
-		verbose_name_plural = '2. Kecamatan'
+		verbose_name_plural = '1. Kecamatan'
 
 class Kelurahan(models.Model):
 	kecamatan = models.ForeignKey(Kecamatan)
@@ -21,7 +21,7 @@ class Kelurahan(models.Model):
 
 	class Meta:
 		db_table = 'tbkelurahan'
-		verbose_name_plural = '3. Kelurahan'
+		verbose_name_plural = '2. Kelurahan'
 
 class Potensi(models.Model):
 	judul = models.CharField('Judul', max_length = 200)
@@ -34,7 +34,7 @@ class Potensi(models.Model):
 
 	class Meta:
 		db_table = 'tbpotensi'
-		verbose_name_plural = '4. Potensi'
+		verbose_name_plural = '3. Potensi'
 
 
 class Kriminalitas(models.Model):
@@ -45,7 +45,7 @@ class Kriminalitas(models.Model):
 
 	class Meta:
 		db_table = 'tbkriminalitas'
-		verbose_name_plural = '5. Kriminalitas'
+		verbose_name_plural = '4. Kriminalitas'
 
 class KriminalitasDescription(models.Model):
 	kecamatan = models.ForeignKey(Kecamatan)
@@ -65,4 +65,19 @@ class KriminalitasDescription(models.Model):
 
 	class Meta:
 		db_table = 'tbkriminalitas_description'
-		verbose_name_plural = '6. Input Data Kriminalitas'
+		verbose_name_plural = '5. Input Data Kriminalitas'
+
+class Profile(models.Model):
+	user = models.ForeignKey(User)
+	gambar = models.ImageField('Gambar', upload_to = 'smbp-profile')
+
+	def __unicode__(self):
+		return self.user.user
+
+	def gambar_(self):
+		return '<img src="/media/%s"/ width="100px">' % self.gambar
+	gambar_.allow_tags = True
+
+	class Meta:
+		db_table = 'tbprofile'
+		verbose_name_plural = '6. Profile'
