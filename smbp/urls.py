@@ -14,7 +14,9 @@ urlpatterns = patterns('',
 	url(r'^dashboard/live-kejadian/?','smbp.views.live_kejadian'),
 	url(r'^dashboard/wilayah/?$','smbp.views.wilayah'),
 	url(r'^dashboard/wilayah/kelurahan/(?P<kelurahan_id>[\d]+)$', 'smbp.views.show_wilayah_kelurahan'),
-	url(r'^dashboard/data-kriminalitas/?','smbp.views.data_kriminalitas'),
-	url(r'^dashboard/rekapitulasi-kriminalitas/?','smbp.views.rekapitulasi_kriminalitas'),
+	url(r'^dashboard/data-kriminalitas/?$','smbp.views.data_kriminalitas'),
+	url(r'^dashboard/data-kriminalitas/print/?','smbp.views.print_data_kriminalitas'),
+	url(r'^dashboard/rekapitulasi-kriminalitas/?$','smbp.views.rekapitulasi_kriminalitas'),
+	url(r'^dashboard/rekapitulasi-kriminalitas/print/?','smbp.views.print_rekapitulasi_kriminalitas'),
 
 )

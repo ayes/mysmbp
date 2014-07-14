@@ -157,3 +157,26 @@ def profile(request):
 		form = ProfileForm()
 	return render_to_response('dashboard-profile.html', 
 		{'form': form,'profile':get_profile(request)}, RequestContext(request))
+
+@login_required()
+def print_data_kriminalitas(request):
+	try:
+		data_kriminalitas = KriminalitasDescription.objects.select_related()
+	except:
+		data_kriminalitas = {}
+
+	return render_to_response('dashboard-print-data-kriminalitas.html', {'data_kriminalitas':data_kriminalitas,'profile':get_profile(request)}, RequestContext(request))
+
+@login_required()
+def print_rekapitulasi_kriminalitas(request):
+	try:
+		kriminalitas = Kriminalitas.objects.all().order_by('id')
+	except:
+		kriminalitas = {}
+
+	#try:
+		rekapitulasi_kriminalitas = KriminalitasDescription.objects.select_related().filter(kriminalitas_id=kriminalitas_id).aggregate(Sum('field_name'))
+	#except:
+	#	rekapitulasi_kriminalitas = {}
+
+	return render_to_response('dashboard-print-rekapitulasi-kriminalitas.html', {'kriminalitas':kriminalitas,'profile':get_profile(request)}, RequestContext(request))
