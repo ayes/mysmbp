@@ -8,7 +8,7 @@ urlpatterns = patterns('',
 	url(r'^dashboard/logout/?$','smbp.views.logout'),
 
 	url(r'^dashboard/profile/?','smbp.views.profile'),
-	url(r'^dashboard/potensi/?','smbp.views.potensi'),
+	url(r'^dashboard/potensi/?$','smbp.views.potensi'),
 	url(r'^dashboard/kejadian/?','smbp.views.kejadian'),
 	url(r'^dashboard/live-potensi/?','smbp.views.live_potensi'),
 	url(r'^dashboard/live-kejadian/?','smbp.views.live_kejadian'),
@@ -18,5 +18,7 @@ urlpatterns = patterns('',
 	url(r'^dashboard/data-kriminalitas/print/?','smbp.views.print_data_kriminalitas'),
 	url(r'^dashboard/rekapitulasi-kriminalitas/?$','smbp.views.rekapitulasi_kriminalitas'),
 	url(r'^dashboard/rekapitulasi-kriminalitas/print/?','smbp.views.print_rekapitulasi_kriminalitas'),
+
+	url(r'^dashboard/potensi-konflik/detail/(?P<pk_id>[\d]+)$','smbp.views.potensi_konflik_detail'),
 
 )

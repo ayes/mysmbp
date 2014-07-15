@@ -53,7 +53,10 @@ class KriminalitasDescription(models.Model):
 	kriminalitas = models.ForeignKey(Kriminalitas)
 	tanggal = models.DateTimeField('Tanggal dan Waktu')
 	pelapor = models.ForeignKey(User)
-	gambar = models.ImageField('Gambar', upload_to = 'smbp-description')
+	gambar = models.ImageField('Gambar', upload_to = 'smbp-description', default = 'smbp-description/no-img.jpg')
+	gambar1 = models.ImageField('Gambar', upload_to = 'smbp-description', default = 'smbp-description/no-img.jpg')
+	gambar2 = models.ImageField('Gambar', upload_to = 'smbp-description', default = 'smbp-description/no-img.jpg')
+	gambar3 = models.ImageField('Gambar', upload_to = 'smbp-description', default = 'smbp-description/no-img.jpg')
 	isi = models.TextField('Keterangan', max_length=1024)
 
 	def __unicode__(self):

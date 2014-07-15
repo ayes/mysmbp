@@ -10,7 +10,7 @@ class PotensiForm(ModelForm):
 class KejadianForm(ModelForm):
 	class Meta:
 		model = KriminalitasDescription
-		fields = ['kecamatan', 'kelurahan', 'kriminalitas', 'tanggal', 'gambar', 'isi']
+		fields = ['kecamatan', 'kelurahan', 'kriminalitas', 'tanggal', 'gambar', 'gambar1', 'gambar2', 'gambar3', 'isi']
 
 class ProfileForm(ModelForm):
 	class Meta:

@@ -65,7 +65,7 @@ def kejadian(request):
 			kel = Kelurahan.objects.get(pk=kelurahan)
 			krim = Kriminalitas.objects.get(pk=kriminalitas)
 			tglwkt = tanggal + ' ' + waktu
-			kejadian = KriminalitasDescription(kecamatan=kec, kelurahan=kel, kriminalitas=krim, tanggal=tglwkt, pelapor=request.user, gambar=request.FILES['gambar'], isi=isi)
+			kejadian = KriminalitasDescription(kecamatan=kec, kelurahan=kel, kriminalitas=krim, tanggal=tglwkt, pelapor=request.user, gambar=form.cleaned_data['gambar'], gambar1=form.cleaned_data['gambar1'], gambar2=form.cleaned_data['gambar2'], gambar3=form.cleaned_data['gambar3'], isi=isi)
 			kejadian.save()
 			return HttpResponseRedirect('/dashboard/kejadian/')
 	else:
@@ -180,3 +180,12 @@ def print_rekapitulasi_kriminalitas(request):
 	#	rekapitulasi_kriminalitas = {}
 
 	return render_to_response('dashboard-print-rekapitulasi-kriminalitas.html', {'kriminalitas':kriminalitas,'profile':get_profile(request)}, RequestContext(request))
+
+@login_required()
+def potensi_konflik_detail(request, pk_id = None):
+	try:
+		data_kriminalitas = KriminalitasDescription.objects.select_related().get(pk=pk_id)
+	except:
+		data_kriminalitas = {}
+
+	return render_to_response('dashboard-detail-data-kriminalitas.html', {'data_kriminalitas':data_kriminalitas,'profile':get_profile(request)}, RequestContext(request))
